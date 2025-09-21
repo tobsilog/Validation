@@ -1,30 +1,26 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.css';
+import ProjectSetup from './components/ProjectSetup';
+import DatasetConfig from './components/DatasetConfig';
+import Results from './components/Results';
 
 function App() {
-
-  const [data, setData] = useState([{}])
-
-  useEffect(() => {
-    fetch("/members").then(
-      res => res.json()
-    ).then(
-        data => {
-          setData(data)
-          console.log(data)
-        }
-      )
-  }, [])
   return (
-    <div>
-      {(typeof data.members === 'undefined') ? (
-        <p>Loading...</p>
-      ): (
-        data.members.map((members, i) => (
-          <p key={i}>{members}</p>
-        ))
-      )}
-    </div>
-  )
+    <Router>
+      <div className="App">
+        <header className="app-header">
+          <h1>Virtual Twins Validation Platform</h1>
+          <p>Thesis Implementation - Data Analysis & Validation</p>
+        </header>
+        <Routes>
+          <Route path="/" element={<ProjectSetup />} />
+          <Route path="/config" element={<DatasetConfig />} />
+          <Route path="/results" element={<Results />} />
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
